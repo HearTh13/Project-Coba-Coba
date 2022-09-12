@@ -1,0 +1,352 @@
+
+package make.a.game;
+
+import java.util.Scanner;
+
+public class Game {
+    
+    Scanner input = new Scanner(System.in);
+    Scanner enterInput = new Scanner(System.in);;
+    String playerName;
+    String playerWeapon;
+    String inventory;
+    int playerHP;
+    int choice;
+    int banditHP;
+    
+    public static void main(String[] args) {
+        
+        Game game;
+        game = new Game();
+        game.playerSetUp();
+        game.townGate();
+        
+    }
+    
+    public void playerSetUp(){
+        
+        System.out.println("Please enter your name.");
+        
+        playerName = input.nextLine();
+        
+        System.out.println("Hello " + playerName + ", Here is your Status.");
+        
+        playerHP = 15;
+        playerWeapon = "Knife";
+        banditHP = 15;
+        inventory = "0";
+        
+        System.out.println("Your HP : " + playerHP);
+        System.out.println("Your Weapon : " + playerWeapon);
+        System.out.println();
+        System.out.println("Let the game begins!");
+        enterInput.nextLine();
+        
+    }
+    
+    public void townGate(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("You are at a gate of a town.\nA guard is standing in front of you.");
+        System.out.println("");
+        enterInput.nextLine();
+        System.out.println("What do you want to do?");
+        System.out.println();
+        System.out.println("1. Talk to the guard.");
+        System.out.println("2. Attack the guard.");
+        System.out.println("3. Leave.");
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            if(inventory.equals("Silver Ring")){
+                
+                System.out.println("Guard : \"Holly smokes!\"\n\"How did you get that Silver Ring?\"");
+                System.out.println("You told the guard everything you've been through.");
+                System.out.println("Guard : \"Really!?\"\n\"You are the hero of this town!\"\n\"You may enter and leave freely in this town.");
+                enterInput.nextLine();
+                System.out.println("\n~THE END~\n");
+                System.out.println(playerName+" : \"Hehehe...\"");
+                ending();
+                
+            }
+            else{
+                System.out.println("Guard : \"Hello there, stranger! So your name is "+playerName+", huh.\"\n\"Sorry, but I cannot allow you to enter.\"");
+                System.out.println("\nYou wonder why.\n");
+                System.out.println("Guard : \"There is a strange looking man a while ago\"\n\"So I need to keep this town safe.\"");
+                enterInput.nextLine();
+                townGate();
+            }
+        }
+        else if(choice==2){
+            playerHP = playerHP - 5;
+            System.out.println("Instead, you are attacked by the guard.\n(You receive 5 damage)\n");
+            System.out.println("Your HP : "+playerHP);
+            enterInput.nextLine();
+            townGate();
+        }
+        else if(choice==3){
+            if(inventory.equals("Silver Ring")){
+                
+                System.out.println("You do not need to leave the town.");
+                enterInput.nextLine();
+                townGate();
+                
+            }
+            else{
+                System.out.println("You leave the Town Gate.");
+                enterInput.nextLine();
+                crossRoad();
+            }
+        }
+        else{
+            townGate();
+        }
+    }
+    
+    public void crossRoad(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("You are in a Crossroad.\nIf you go south, you will go back to town.\n");
+        enterInput.nextLine();
+        System.out.println("What do you want to do?");
+        System.out.println("1. Go north.");
+        System.out.println("2. Go east.");
+        System.out.println("3. Go west.");
+        System.out.println("4. Go south.");
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            
+            System.out.println("You go north.");
+            enterInput.nextLine();
+            north();
+            
+        }
+        if(choice==2){
+            
+            System.out.println("You go east.");
+            enterInput.nextLine();
+            east();
+            
+        }
+        if(choice==3){
+            
+            System.out.println("You go west.");
+            enterInput.nextLine();
+            west();
+            
+        }
+        if(choice==4){
+            
+            System.out.println("You go back to the town gate.");
+            enterInput.nextLine();
+            townGate();
+            
+        }
+        else{
+            crossRoad();
+        }
+    }
+    
+    public void north(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("There is a river. You can drink the water\nand rest at the riverside.\nYou feel refreshed.\n(Your HP is increased by 3)\n");
+        playerHP = playerHP + 3;
+        System.out.println("Your HP : "+playerHP);
+        enterInput.nextLine();
+        System.out.println("\nWhat will you do next?");
+        System.out.println("\n\n1. Go back to the crossroad");       
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            
+            System.out.println("You go back to the crossroad.");
+            enterInput.nextLine();
+            crossRoad();
+            
+        }
+        else{
+            north();
+        }
+    }
+    
+    public void east(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("You walked into a forest and found a Short Sword.");
+        playerWeapon = "Short Sword";
+        System.out.println("\nYour weapon : "+playerWeapon);
+        enterInput.nextLine();
+        System.out.println("\nWhat will you do next?");
+        System.out.println("\n\n1. Go back to the crossroad"); 
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            
+            System.out.println("You go back to the crossroad.");
+            enterInput.nextLine();
+            crossRoad();
+            
+        }
+        else{
+            east();
+        }
+    }
+        
+    public void west(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("You encounter a bandit!");
+        enterInput.nextLine();
+        System.out.println("\nWhat will you do?");
+        System.out.println("1. Fight.");
+        System.out.println("2. Go back.");
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            
+            fight();
+            
+        }
+        if(choice==2){
+            
+            System.out.println("You go back to the crossroad.");
+            enterInput.nextLine();
+            crossRoad();
+            
+        }
+        else{ 
+            west(); 
+        }
+    }
+    
+    public void fight(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("Your HP : "+playerHP);
+        System.out.println("Bandit HP : "+banditHP);
+        enterInput.nextLine();
+        System.out.println("What will you do?");
+        System.out.println("\n1. Attack.");
+        System.out.println("2.Run");
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            System.out.println("You attacked the bandit.");
+            enterInput.nextLine();
+            attack();
+        }
+        if(choice==2){
+            System.out.println("You ran away. What a coward.");
+            enterInput.nextLine();
+            crossRoad();
+        }
+        else{
+            fight();
+        }
+    }
+    
+    public void attack(){
+        
+        int playerDamage;
+        int weaponDamage;
+        
+        playerDamage = 0;
+        weaponDamage = 0;
+        
+        if(playerWeapon.equals("Knife")){
+            
+            weaponDamage = new java.util.Random().nextInt(4);
+            
+        }
+        if (playerWeapon.equals("Short Sword")){
+            
+            weaponDamage = new java.util.Random().nextInt(11);
+            
+        }
+        
+        banditHP = banditHP - weaponDamage;
+        
+        System.out.println("The bandit receive "+weaponDamage+" damage.");
+        System.out.println("\nBandit HP : "+banditHP);
+        
+        enterInput.nextLine();
+        
+        if(banditHP < 1){
+            win();
+        }
+        if(banditHP > 0){
+            int banditDamage;
+            banditDamage = 0;
+            
+            banditDamage = new java.util.Random().nextInt(4);
+            
+            System.out.println("The bandit attacked you.");
+            playerHP = playerHP - banditDamage;
+            enterInput.nextLine();
+            System.out.println("You receive "+banditDamage+" damage");
+            System.out.println("\nYour HP : "+playerHP);
+            
+            enterInput.nextLine();
+            
+            if(playerHP<1){
+                dead();
+            }
+            if(playerHP>0){
+                fight();
+            }
+        }
+        
+    }
+    public void dead(){
+        
+        System.out.println("\n---------------------------------------\n");
+        System.out.println("~GAME OVER~");
+        System.out.println("You will never enter the town.");
+        System.out.println("\n---------------------------------------\n");
+        
+        ending();
+        
+        
+    }
+    
+    public void win(){
+        
+        System.out.println("\n---------------------------------------\n");
+        inventory = "Silver Ring";
+        System.out.println("You knocked the bandit out.");
+        System.out.println("The bandit drops an item.");
+        System.out.println("You obtain a Silver Ring.");
+        enterInput.nextLine();
+        System.out.println("\nWhat will you do now?");
+        System.out.println("1. Go back to the town gate");
+        System.out.println("\n---------------------------------------\n");
+        
+        choice = input.nextInt();
+        
+        if(choice==1){
+            System.out.println("You go back to the town gate.");
+            enterInput.nextLine();
+            townGate();
+        }
+        
+    }
+    public void ending(){
+        
+        System.out.println("~THE END?~");
+        
+    }
+}
